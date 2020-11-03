@@ -1,25 +1,29 @@
 const http = require('http');
 const express = require('express');
 const path = require('path');
-
-const app = express;
-app.use(express.json());
-app.use(express.static("express"));
-
-app.use('/', function (req, res) {
-    // res.sendFile
-});
+const port = 8080;
+const app = express()
 
 
-const server = http.createServer(function (req, res) {
+const JsonToCsv = require('./client/app.js').JsonToCsv;
+const fs = require('fs');
 
-});
+// Inside your server file, you can simply point express to your client folder
+app.use(express.static(__dirname + '/client'));
 
-server.listen(port, function (error) {
-    if (error) {
-        console.log("there is error");
-    } else {
-        // console.log("server is listining");
-        server.listen(port);
-    }
+app.post('/', function (req, res) {
+    csv = JsonToCsv(JSON.parse)
+})
+
+
+// server.listen(port, function (error) {
+//     if (error) {
+//         console.log("there is error");
+//     } else {
+//         console.log("server is listining" + port);
+//     }
+// })
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
 })
